@@ -1,4 +1,5 @@
-(ns constraint.config.coercions)
+(ns constraint.config.coercions
+  (:import clojure.lang.Keyword))
 
 ;; Borrowed from Constraint as it's currently private.
 (defn- failed-coercion [type data]
@@ -15,6 +16,10 @@
 (defn- string->boolean [s]
   {:value (= s "true")})
 
+(defn- string->keyword [s]
+  {:value (keyword s)})
+
 (def string-coercions
   {[String Long] string->long
-   [String Boolean] string->boolean})
+   [String Boolean] string->boolean
+   [String Keyword] string->keyword})
