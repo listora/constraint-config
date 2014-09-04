@@ -22,6 +22,7 @@
    :enable-alpha-features {:constraint Boolean}
    :enable-beta-features {:constraint Boolean}
    (? :memcached) String
+   (? :max-threads) {:path [:threads :max]}
    :log-level Keyword
    :port {:constraint Long}})
 
@@ -32,6 +33,7 @@
    :memcached
    :port
    :shell
+   :threads
    :user])
 
 (deftest test-transform-config
@@ -47,6 +49,7 @@
          [:enable-beta-features] true
          [:log-level] :info
          [:memcached] nil
+         [:threads :max] nil
          [:port] 3000)))
 
 (deftest test-transform-config-with-errors
