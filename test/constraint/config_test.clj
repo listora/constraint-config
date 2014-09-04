@@ -1,6 +1,7 @@
 (ns constraint.config-test
   (:require [clojure.test :refer :all]
-            [constraint.config :refer :all]))
+            [constraint.config :refer :all]
+            [constraint.core :refer [?]]))
 
 (def config-in
   {:shell "zsh"
@@ -18,10 +19,11 @@
    :user-age {:path [:user :age] :constraint Long}
    :enable-alpha-features {:constraint Boolean}
    :enable-beta-features {:constraint Boolean}
+   (? :memcached) String
    :port {:constraint Long}})
 
 (def expected-config-keys
-  [:enable-alpha-features :enable-beta-features :port :shell :user])
+  [:enable-alpha-features :enable-beta-features :memcached :port :shell :user])
 
 (deftest test-transform-config
   (let [{:keys [config errors]} (transform-config definition config-in)]
@@ -34,6 +36,7 @@
          [:user :age] 21
          [:enable-alpha-features] false
          [:enable-beta-features] true
+         [:memcached] nil
          [:port] 3000)))
 
 (deftest test-transform-config-with-errors
