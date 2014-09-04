@@ -1,4 +1,4 @@
-# constraint-config
+# constraint-config [![Build Status](https://travis-ci.org/listora/constraint-config.svg?branch=master)](https://travis-ci.org/listora/constraint-config)
 
 Pull configuration from environment variables and prepare it for use
 in your Clojure app.

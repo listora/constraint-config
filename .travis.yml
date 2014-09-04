@@ -1,0 +1,15 @@
+language: clojure
+lein: lein2
+jvm:
+  - openjdk7
+  - oraclejdk8
+
+env:
+  matrix:
+    - TASK='difftest'
+    - TASK='lint'
+
+script: lein2 $TASK
+
+notifications:
+  email: false
