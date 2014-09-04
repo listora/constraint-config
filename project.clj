@@ -1,4 +1,4 @@
-(defproject listora/constraint-config "0.1.1"
+(defproject listora/constraint-config "0.1.2-SNAPSHOT"
   :description "Verify and transform you application config"
   :url "https://github.com/listora/constraint-config"
 
