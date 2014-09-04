@@ -1,4 +1,5 @@
 (ns constraint.config-test
+  (:import clojure.lang.Keyword)
   (:require [clojure.test :refer :all]
             [constraint.config :refer :all]
             [constraint.core :refer [?]]))
@@ -10,6 +11,7 @@
    :user-age 21
    :enable-alpha-features ""
    :enable-beta-features "true"
+   :log-level "info"
    :port "3000"})
 
 (def definition
@@ -20,10 +22,17 @@
    :enable-alpha-features {:constraint Boolean}
    :enable-beta-features {:constraint Boolean}
    (? :memcached) String
+   :log-level Keyword
    :port {:constraint Long}})
 
 (def expected-config-keys
-  [:enable-alpha-features :enable-beta-features :memcached :port :shell :user])
+  [:enable-alpha-features
+   :enable-beta-features
+   :log-level
+   :memcached
+   :port
+   :shell
+   :user])
 
 (deftest test-transform-config
   (let [{:keys [config errors]} (transform-config definition config-in)]
@@ -36,6 +45,7 @@
          [:user :age] 21
          [:enable-alpha-features] false
          [:enable-beta-features] true
+         [:log-level] :info
          [:memcached] nil
          [:port] 3000)))
 

@@ -80,6 +80,7 @@ interest.
 ## Usage
 
 ``` clj
+(import clojure.lang.Keyword)
 (require '[constraint.core :refer [?]])
 (require '[constraint.config :as conf])
 
@@ -89,6 +90,7 @@ interest.
    :port {:constraint Long}
    (? :cache-url) String
    :enable-beta {:constraint Boolean}
+   :log-level Keyword
    :broker-url {:path [:broker :url]}
    :broker-threads {:path [:broker :threads]
                     :constraint Long}})
@@ -97,6 +99,7 @@ interest.
   {:user "bert"
    :port "3000"
    :enable-beta "true"
+   :log-level "info"
    :broker-url "amqp://localhost:5672/development"
    :broker-thread "5"})
 
@@ -109,6 +112,7 @@ interest.
  :port 3000
  :cache-url nil
  :enable-beta true
+ :log-level :info
  :broker {:threads 5
           :url "amqp://localhost:5672/development"}}
 ```
