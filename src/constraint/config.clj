@@ -19,15 +19,35 @@
 (defn- build-constraint [definition]
   (map-vals :constraint definition))
 
-(defn- build-config [{:keys [value]} definition]
-  (reduce-kv #(assoc-in %1 (:path %3) (%2 value)) {} definition))
+(defn- read-key
+  "Return a key from a configuration definition, taking into account
+  some keys might be wrapped in a `constraint.core.Optional`."
+  [key]
+  (if (constraint/optional? key)
+    (.constraint key)
+    key))
 
-(defn- transform [constraint value]
+(defn- build-config
+  "Return a hash-map of paths and values specified by `definition`."
+  [{transformed :value} definition]
+  (reduce-kv #(assoc-in %1 (:path %3) ((read-key %2) transformed))
+             {}
+             definition))
+
+(defn- transform
+  "Transform a hash-map of configuration using the given
+  `constraint`."
+  [constraint value]
   (constraint/transform constraint value string-coercions))
 
 (defn- normalize-definition-pair
+  "Returns a key-value pair where the value has been normalised to a
+  hash-map containing `:path` and `:constraint`.
+
+  The default constraint applied to all configuration variables is
+  `String`."
   [[k v]]
-  (let [default {:path [k] :constraint String}]
+  (let [default {:path [(read-key k)] :constraint String}]
     [k (if (map? v)
          (merge default v)
          (assoc default :constraint v))]))

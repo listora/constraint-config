@@ -80,12 +80,14 @@ interest.
 ## Usage
 
 ``` clj
+(require '[constraint.core :refer [?]])
 (require '[constraint.config :as conf])
 
 ;; Define a mapping from the incoming flat configuration
 (def config-definition
-  {:user true
+  {:user String
    :port {:constraint Long}
+   (? :cache-url) String
    :enable-beta {:constraint Boolean}
    :broker-url {:path [:broker :url]}
    :broker-threads {:path [:broker :threads]
@@ -105,6 +107,7 @@ interest.
 ;; from. Constraints are applied and transformed values returned.
 {:user "bert"
  :port 3000
+ :cache-url nil
  :enable-beta true
  :broker {:threads 5
           :url "amqp://localhost:5672/development"}}
