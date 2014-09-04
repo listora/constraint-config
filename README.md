@@ -17,7 +17,7 @@ configuration for use in our Clojure code.
 Available via Clojars, add the following dependency to your project:
 
 ``` clj
-[listora/constraint.config "0.1.0"]
+[listora/constraint.config "0.1.1"]
 ```
 
 ## Getting Started
