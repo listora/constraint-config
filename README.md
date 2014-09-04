@@ -67,7 +67,7 @@ configuration from a simple string into a more useful type using the
 The following type transformations are available out of the box:
 
 | Environment   | Constraint | Value    |
-|---------------+------------+----------|
+|---------------|------------|----------|
 | `PORT=3000`   | Long       | `3000`   |
 | `FRUIT=apple` | Keyword    | `:apple` |
 | `ENABLE=true` | Boolean    | `true`   |
